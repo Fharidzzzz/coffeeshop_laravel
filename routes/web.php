@@ -21,13 +21,12 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
 
 // ☕ Rute KHUSUS USER/CUSTOMER (Harus login dulu)
 Route::middleware('auth')->group(function () {
-    Route::get('/shop', function () {
-        return "<h1>Selamat Datang di Katalog Kopi Mewah</h1><p>Halo, " . auth()->user()->name . ". Ini halaman belanja premium kamu.</p><form action='/logout' method='POST'>" . csrf_field() . "<button type='submit'>Logout</button></form>";
-    });
+    // Jalur katalog produk diarahkan ke Controller
+    Route::get('/shop', [ProductController::class, 'index']);
 });
 
 // 👑 Rute KHUSUS ADMIN (Harus login & lolos Middleware IsAdmin)
-Route::middleware(['auth', \App\Http\Middleware::class . '\IsAdmin'::class])->group(function () {
+Route::middleware(['auth', \App\Http\Middleware\IsAdmin::class])->group(function () {
     Route::get('/admin/dashboard', function () {
         return "<h1>Dashboard Manajemen Coffee Shop (ADMIN)</h1><p>Selamat datang Boss, " . auth()->user()->name . ".</p><form action='/logout' method='POST'>" . csrf_field() . "<button type='submit'>Logout</button></form>";
     });
