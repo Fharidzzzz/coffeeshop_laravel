@@ -57,6 +57,9 @@
                             
                             <button class="bg-gradient-to-r from-[#B38728] to-[#AA771C] hover:from-[#AA771C] hover:to-[#B38728] text-black font-semibold text-xs px-4 py-2.5 rounded-xl transition-all duration-300 transform hover:-translate-y-0.5 shadow-lg">
                                 Add to Experience
+                                <p class="text-xs text-[#D4AF37] font-medium tracking-wide mt-0.5">
+    $ {{ number_format($product->price * $usdRate, 2) }} USD
+</p>
                             </button>
                         </div>
                     </div>
