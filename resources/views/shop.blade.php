@@ -37,7 +37,16 @@
                     
                     <div class="h-64 bg-[#222222] relative overflow-hidden flex items-center justify-center border-b border-[#262626]">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#1A1A1A] to-transparent opacity-60 z-10"></div>
-                        <span class="serif-title text-5xl opacity-10 group-hover:scale-110 transition-transform duration-700 select-none">☕</span>
+                        
+                        @if($product->image)
+                            <img src="{{ asset('storage/products/' . $product->image) }}" alt="{{ $product->name }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        @else
+                            <div class="text-center z-20 group-hover:scale-110 transition-transform duration-700 select-none">
+                                <span class="text-5xl block mb-2">☕</span>
+                                <span class="text-[10px] uppercase tracking-widest text-[#D4AF37]/30 font-mono">No Image</span>
+                            </div>
+                        @endif
+
                         <div class="absolute top-4 right-4 bg-black/60 backdrop-blur-md text-[#D4AF37] border border-[#D4AF37]/30 text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full z-20">
                             Available
                         </div>
@@ -55,7 +64,6 @@
                                 <p class="text-lg font-semibold text-white">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
                             </div>
                             
-                            <!-- 🛒 Form Checkout Integrasi Midtrans -->
                             <form action="/checkout" method="POST" class="inline">
                                 @csrf
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
