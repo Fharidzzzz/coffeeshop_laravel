@@ -20,8 +20,12 @@ Route::middleware('guest')->group(function () {
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
 
 // ☕ Rute KHUSUS USER/CUSTOMER (Harus login dulu)
+// ☕ Rute KHUSUS USER/CUSTOMER (Harus login dulu)
 Route::middleware('auth')->group(function () {
     Route::get('/shop', [\App\Http\Controllers\ProductController::class, 'index']);
+    
+    // 🚀 Tambahkan baris ini untuk rute checkout Midtrans
+    Route::post('/checkout', [\App\Http\Controllers\OrderController::class, 'checkout']);
 });
 
 // 👑 Rute KHUSUS ADMIN (Harus login & lolos Middleware IsAdmin)

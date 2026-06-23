@@ -55,12 +55,17 @@
                                 <p class="text-lg font-semibold text-white">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
                             </div>
                             
-                            <button class="bg-gradient-to-r from-[#B38728] to-[#AA771C] hover:from-[#AA771C] hover:to-[#B38728] text-black font-semibold text-xs px-4 py-2.5 rounded-xl transition-all duration-300 transform hover:-translate-y-0.5 shadow-lg">
-                                Add to Experience
-                                <p class="text-xs text-[#D4AF37] font-medium tracking-wide mt-0.5">
-    $ {{ number_format($product->price * $usdRate, 2) }} USD
-</p>
-                            </button>
+                            <!-- 🛒 Form Checkout Integrasi Midtrans -->
+                            <form action="/checkout" method="POST" class="inline">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <button type="submit" class="bg-gradient-to-r from-[#B38728] to-[#AA771C] hover:from-[#AA771C] hover:to-[#B38728] text-black font-semibold text-xs px-4 py-2.5 rounded-xl transition-all duration-300 transform hover:-translate-y-0.5 shadow-lg block text-center">
+                                    <span>Add to Experience</span>
+                                    <span class="text-[10px] text-[#5c4308] font-bold tracking-wide mt-0.5 block border-t border-black/10 pt-0.5">
+                                        $ {{ number_format($product->price * $usdRate, 2) }} USD
+                                    </span>
+                                </button>
+                            </form>
                         </div>
                     </div>
 
