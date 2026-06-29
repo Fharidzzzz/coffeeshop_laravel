@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -41,6 +42,8 @@ class AdminController extends Controller
             $data['image'] = $filename; // Masukkan nama file ke array database
         }
 
+        $data['slug'] = Str::slug($request->name);
+        
         Product::create($data);
 
         return redirect('/admin/dashboard')->with('success', 'Menu kopi baru berhasil ditambahkan!');

@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    //
+    protected $guarded = []; // Artinya: tidak ada field yang dijaga/dikunci
 }

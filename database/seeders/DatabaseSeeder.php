@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
         // Memanggil ProductSeeder agar menu kopi juga terisi otomatis
         $this->call([
             ProductSeeder::class,
+            ProductImageSeeder::class,
         ]);
     }
 }

@@ -8,7 +8,7 @@
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <!-- Menggunakan kombinasi font mewah Playfair Display (Serif) dan Inter (Sans) sesuai tema Monolith -->
+        <!-- Kombinasi font mewah: Playfair Display (Serif) dan Inter (Sans) -->
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
         @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
@@ -17,7 +17,6 @@
 
         <style>
             :root {
-                /* Transformasi Palet Warna: Mengikuti sirkuit Luxury Noir Gold Monolith */
                 --monolith-black: #121212;
                 --monolith-card: #1A1A1A;
                 --monolith-border: #262626;
@@ -27,7 +26,7 @@
                 --text-gray: #A1A09A;
             }
 
-            * { box-shrink: 0; box-sizing: border-box; }
+            * { box-sizing: border-box; }
 
             body {
                 margin: 0;
@@ -65,9 +64,7 @@
                 letter-spacing: 0.08em;
             }
 
-            .brand span {
-                color: var(--gold-premium);
-            }
+            .brand span { color: var(--gold-premium); }
 
             .brand svg { width: 26px; height: 26px; flex-shrink: 0; color: var(--gold-premium); }
 
@@ -89,6 +86,8 @@
                 white-space: nowrap;
                 letter-spacing: 0.05em;
                 text-transform: uppercase;
+                display: inline-flex;
+                align-items: center;
             }
 
             .nav-links a:hover {
@@ -108,6 +107,32 @@
                 background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-premium) 100%);
                 border-color: var(--gold-premium);
                 box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+            }
+
+            /* Tombol logout dibuat senada dengan nav-links lain, bukan teks polos */
+            .logout-form { margin: 0; display: inline-flex; }
+
+            .logout-btn {
+                font-family: 'Inter', sans-serif;
+                color: var(--text-gray);
+                text-decoration: none;
+                font-size: 13px;
+                font-weight: 500;
+                padding: 10px 20px;
+                border-radius: 999px;
+                border: 1px solid var(--monolith-border);
+                background: transparent;
+                cursor: pointer;
+                white-space: nowrap;
+                letter-spacing: 0.05em;
+                text-transform: uppercase;
+                transition: all .3s ease;
+            }
+
+            .logout-btn:hover {
+                color: #ff6b6b;
+                border-color: #ff6b6b;
+                background: rgba(255, 107, 107, 0.08);
             }
 
             /* ---------- Hero ---------- */
@@ -143,7 +168,6 @@
                 align-items: center;
                 gap: 10px;
                 font-size: 11px;
-                释放;
                 letter-spacing: 0.25em;
                 text-transform: uppercase;
                 color: var(--gold-premium);
@@ -190,7 +214,7 @@
                 align-items: center;
                 gap: 8px;
                 padding: 16px 36px;
-                border-radius: 12px; /* Menggunakan pola rounded modern arsitektur Monolith */
+                border-radius: 12px;
                 font-size: 14px;
                 font-weight: 600;
                 text-decoration: none;
@@ -269,12 +293,13 @@
                 color: rgba(161, 160, 154, 0.4);
                 font-size: 11px;
                 letter-spacing: 0.08em;
-                font-mono;
+                font-family: 'Inter', monospace;
             }
 
             @media (max-width: 640px){
-                .nav { padding: 22px 6vw; }
-                .nav-links a { padding: 9px 16px; font-size: 12px; }
+                .nav { padding: 22px 6vw; flex-wrap: wrap; gap: 14px; }
+                .nav-links { gap: 8px; flex-wrap: wrap; }
+                .nav-links a, .logout-btn { padding: 9px 16px; font-size: 12px; }
                 .hero-foot { display: none; }
             }
         </style>
@@ -295,12 +320,16 @@
             @if (Route::has('login'))
                 <div class="nav-links">
                     @auth
-                        <!-- 🛡️ Pemisah Rute Berbasis Hak Akses Utama Monolith -->
                         @if(auth()->user()->role === 'admin')
                             <a href="{{ url('/admin/dashboard') }}" class="solid">Dashboard</a>
                         @else
                             <a href="{{ url('/shop') }}" class="solid">Shop Catalog</a>
                         @endif
+
+                        <form action="/logout" method="POST" class="logout-form">
+                            @csrf
+                            <button type="submit" class="logout-btn">Logout</button>
+                        </form>
                     @else
                         <a href="{{ route('login') }}">Log in</a>
                         @if (Route::has('register'))
@@ -318,7 +347,7 @@
                 <span class="eyebrow">Curated Collection &middot; Architectural Precision</span>
                 <h1 class="display hero-title">Your ritual<br>deserves a <em>monolith</em> standard.</h1>
                 <p class="hero-sub">
-                    Biji kopi single-origin pilihan, ekstraksi presisi tinggi, dan ruang kontemplasi yang sunyi. 
+                    Biji kopi single-origin pilihan, ekstraksi presisi tinggi, dan ruang kontemplasi yang sunyi.
                     Masuk ke katalog eksklusif kami dan nikmati simfoni rasa terbaik standar hidup Anda.
                 </p>
 
@@ -338,7 +367,6 @@
                 </div>
             </div>
 
-            <!-- Cangkir Geometris Elegan Bawaan dengan Warna Kopi Emas -->
             <svg class="cup-mark" width="120" height="160" viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path class="steam-path s1" d="M48 70 C 44 60, 56 54, 52 44 C 49 37, 56 33, 54 26"/>
                 <path class="steam-path s2" d="M62 70 C 58 60, 70 54, 66 44 C 63 37, 70 33, 68 26"/>
